@@ -5,7 +5,9 @@ const logger = pino({ name: "database" });
 
 const pool = new pg.Pool({
 	connectionString: process.env.DATABASE_URL,
-	ssl: process.env.DATABASE_URL?.includes("sslmode") ? { rejectUnauthorized: false } : undefined,
+	ssl: process.env.DATABASE_URL?.includes("sslmode")
+		? { rejectUnauthorized: false }
+		: undefined,
 });
 
 async function initialize(): Promise<void> {
