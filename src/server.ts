@@ -2,7 +2,7 @@ import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import cors from "cors";
 import express, { type Express, type Request, type Response } from "express";
-import helmet from "helmet";
+
 import { pino } from "pino";
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
@@ -14,18 +14,8 @@ app.set("trust proxy", true);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors({ origin: process.env.CORS_ORIGIN || "*", credentials: true }));
-app.use(
-	helmet({
-		contentSecurityPolicy: {
-			directives: {
-				defaultSrc: ["'self'"],
-				scriptSrc: ["'self'", "'unsafe-inline'"],
-			},
-		},
-	}),
-);
 
-app.use("/home", express.static(join(__dirname, "public")));
+app.use("/api", express.static(join(__dirname, "public")));
 
 app.get("/health-check", (_req: Request, res: Response) => {
 	res.json({ status: "ok" });

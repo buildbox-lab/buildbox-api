@@ -8,7 +8,7 @@ Simple Express HTTP server running on Bun, packaged as a Docker container with G
 |---|---|
 | `GET /health-check` | Returns `{"status": "ok"}` |
 | `GET /hello-world` | Returns the `SERVER_HELLO` env variable |
-| `GET /home` | Optional dashboard UI |
+| `GET /api` | API explorer UI |
 
 ## Quick Start
 
@@ -91,7 +91,7 @@ The container runs as a non-root user and includes a built-in health check that 
 
 - [Bun](https://bun.sh/) - Runtime
 - [Express](https://expressjs.com/) - HTTP framework
-- [Helmet](https://helmetjs.github.io/) - Security headers
+
 - [Pino](https://getpino.io/) - Logging
 - [Biome](https://biomejs.dev/) - Linting and formatting
 - [PostgreSQL](https://www.postgresql.org/) - Database (via [Neon](https://neon.tech/))
