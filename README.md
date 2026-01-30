@@ -4,11 +4,11 @@ Simple Express HTTP server running on Bun, packaged as a Docker container with G
 
 ## Endpoints
 
-| Route | Description |
-|---|---|
-| `GET /health-check` | Returns `{"status": "ok"}` |
-| `GET /hello-world` | Returns the `SERVER_HELLO` env variable |
-| `GET /api` | API explorer UI |
+| Route               | Description                             |
+| ------------------- | --------------------------------------- |
+| `GET /health-check` | Returns `{"status": "ok"}`              |
+| `GET /hello-world`  | Returns the `SERVER_HELLO` env variable |
+| `GET /api`          | API explorer UI                         |
 
 ## Quick Start
 
@@ -38,22 +38,22 @@ docker compose down
 
 ## Environment Variables
 
-| Variable | Default | Description |
-|---|---|---|
-| `PORT` | `8000` | Server port |
-| `HOST` | `localhost` | Server host |
-| `NODE_ENV` | `development` | Environment mode |
-| `SERVER_HELLO` | `Hello World!` | Message for `/hello-world` |
-| `DATABASE_URL` | - | PostgreSQL connection string |
+| Variable       | Default        | Description                  |
+| -------------- | -------------- | ---------------------------- |
+| `PORT`         | `8000`         | Server port                  |
+| `HOST`         | `localhost`    | Server host                  |
+| `NODE_ENV`     | `development`  | Environment mode             |
+| `SERVER_HELLO` | `Hello World!` | Message for `/hello-world`   |
+| `DATABASE_URL` | -              | PostgreSQL connection string |
 
 ## Scripts
 
-| Command | Description |
-|---|---|
-| `bun run dev` | Start development server |
-| `bun run lint` | Lint and fix with Biome |
-| `bun run lint:check` | Lint without fixing (CI) |
-| `bun run format` | Format and fix with Biome |
+| Command                | Description                      |
+| ---------------------- | -------------------------------- |
+| `bun run dev`          | Start development server         |
+| `bun run lint`         | Lint and fix with Biome          |
+| `bun run lint:check`   | Lint without fixing (CI)         |
+| `bun run format`       | Format and fix with Biome        |
 | `bun run format:check` | Format check without fixing (CI) |
 
 ## CI/CD Pipelines
@@ -63,6 +63,7 @@ docker compose down
 Triggers on push to `main` when `src/**`, `Dockerfile`, `package.json`, or `bun.lock` change.
 
 Steps:
+
 1. Checks out the code
 2. Logs in to GitHub Container Registry (GHCR)
 3. Builds the Docker image
@@ -73,6 +74,7 @@ Steps:
 Triggers on pull requests to `main`.
 
 Steps:
+
 1. Installs Bun and dependencies
 2. Runs Biome lint check
 3. Runs Biome format check
@@ -95,3 +97,4 @@ The container runs as a non-root user and includes a built-in health check that 
 - [Pino](https://getpino.io/) - Logging
 - [Biome](https://biomejs.dev/) - Linting and formatting
 - [PostgreSQL](https://www.postgresql.org/) - Database (via [Neon](https://neon.tech/))
+- Lefthook commit added
