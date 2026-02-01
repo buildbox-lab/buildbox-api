@@ -8,6 +8,7 @@ RUN bun install --frozen-lockfile --production --ignore-scripts
 
 # --- release ---
 FROM oven/bun:${BUN_VERSION}-slim AS release
+RUN apt-get update && apt-get upgrade -y --no-install-recommends && rm -rf /var/lib/apt/lists/*
 WORKDIR /app
 
 COPY --from=install --chown=bun:bun /app/node_modules ./node_modules
