@@ -111,7 +111,7 @@ jobs:
             --allow-unauthenticated
 
   deploy-production:
-    needs: deploy-staging
+    needs: [deploy-staging, build]
     runs-on: ubuntu-latest
     environment: production
     permissions:
