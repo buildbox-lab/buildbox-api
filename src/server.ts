@@ -21,12 +21,4 @@ app.get("/health-check", (_req: Request, res: Response) => {
 	res.json({ status: "ok" });
 });
 
-app.get("/version", (_req: Request, res: Response) => {
-	res.json({
-		commit: process.env.BUILD_SHA || "unknown",
-		bun: Bun.version,
-		node: process.version,
-	});
-});
-
 export { app, logger };

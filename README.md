@@ -7,7 +7,6 @@ Simple Express HTTP server running on Bun, packaged as a Docker container with G
 | Route               | Description                             |
 | ------------------- | --------------------------------------- |
 | `GET /health-check` | Returns `{"status": "ok"}`              |
-| `GET /version`      | Returns build SHA and runtime versions  |
 | `GET /api`          | API explorer UI                         |
 
 ## Quick Start

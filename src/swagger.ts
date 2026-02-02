@@ -27,28 +27,5 @@ export const swaggerSpec = {
 				},
 			},
 		},
-		"/version": {
-			get: {
-				summary: "Build and runtime version info",
-				operationId: "version",
-				responses: {
-					"200": {
-						description: "Returns build commit SHA and runtime versions",
-						content: {
-							"application/json": {
-								schema: {
-									type: "object",
-									properties: {
-										commit: { type: "string", example: "a1b2c3d" },
-										bun: { type: "string", example: "1.3.8" },
-										node: { type: "string", example: "v22.0.0" },
-									},
-								},
-							},
-						},
-					},
-				},
-			},
-		},
 	},
 };
