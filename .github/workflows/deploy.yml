@@ -7,8 +7,8 @@ on:
 
 env:
   GCP_REGION: ${{ vars.GCP_REGION || 'us-central1' }}
-  SERVICE_NAME: docker-api-pipeline
-  AR_IMAGE: ${{ vars.GCP_REGION || 'us-central1' }}-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/${{ secrets.GCP_AR_REPO }}/docker-api-pipeline
+  SERVICE_NAME: buildbox-api
+  AR_IMAGE: ${{ vars.GCP_REGION || 'us-central1' }}-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/${{ secrets.GCP_AR_REPO }}/buildbox-api
 
 jobs:
   test:
