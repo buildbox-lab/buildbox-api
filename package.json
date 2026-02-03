@@ -1,5 +1,5 @@
 {
-	"name": "task1",
+	"name": "buildbox-api",
 	"scripts": {
 		"dev": "bun run src/index.ts",
 		"format": "bunx biome format --write",
