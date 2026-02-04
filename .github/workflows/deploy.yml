@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 env:
-  GCP_REGION: ${{ vars.GCP_REGION || 'us-central1' }}
+  GCP_REGION: ${{ vars.GCP_REGION || 'europe-west1' }}
   SERVICE_NAME: buildbox-api
   AR_IMAGE: ${{ vars.GCP_REGION || 'us-central1' }}-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/${{ secrets.GCP_AR_REPO }}/buildbox-api
 
@@ -112,6 +112,10 @@ jobs:
             --memory=256Mi
             --cpu=1
             --allow-unauthenticated
+            --update-labels=env=dev,app=buildbox-api,managed-by=github-actions
+          env_vars: |
+            NODE_ENV=production
+            CORS_ORIGIN=${{ secrets.DEV_WEB_URL }}
 
   deploy-production:
     needs: [deploy-dev, build]
@@ -139,3 +143,7 @@ jobs:
             --memory=256Mi
             --cpu=1
             --allow-unauthenticated
+            --update-labels=env=prod,app=buildbox-api,managed-by=github-actions
+          env_vars: |
+            NODE_ENV=production
+            CORS_ORIGIN=${{ secrets.PROD_WEB_URL }}

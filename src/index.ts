@@ -1,16 +1,17 @@
 import "./tracing";
 import "dotenv/config";
+import { validateEnv } from "./config";
 import * as db from "./db";
 import { app, logger } from "./server";
 
-const PORT = process.env.PORT || 8000;
-const HOST = process.env.HOST || "localhost";
-const NODE_ENV = process.env.NODE_ENV || "development";
+const config = validateEnv();
 
 await db.initialize();
 
-const server = app.listen(PORT, () => {
-	logger.info(`Server (${NODE_ENV}) running on http://${HOST}:${PORT}`);
+const server = app.listen(config.port, () => {
+	logger.info(
+		`Server (${config.nodeEnv}) running on http://${config.host}:${config.port}`,
+	);
 });
 
 const onCloseSignal = () => {

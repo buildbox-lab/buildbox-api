@@ -1,14 +1,37 @@
 import pg from "pg";
 import { logger } from "./logger";
 
-const pool = new pg.Pool({
-	connectionString: process.env.DATABASE_URL,
-	ssl: process.env.DATABASE_URL?.includes("sslmode")
-		? { rejectUnauthorized: false }
-		: undefined,
-});
+function createPool(): pg.Pool {
+	const connectionString = process.env.DATABASE_URL;
+
+	if (!connectionString) {
+		logger.warn("DATABASE_URL not set - database features disabled");
+		return new pg.Pool();
+	}
+
+	const sslConfig = connectionString.includes("sslmode=require")
+		? {
+				rejectUnauthorized: process.env.NODE_ENV === "production",
+			}
+		: undefined;
+
+	return new pg.Pool({
+		connectionString,
+		ssl: sslConfig,
+		max: 20,
+		idleTimeoutMillis: 30000,
+		connectionTimeoutMillis: 10000,
+	});
+}
+
+const pool = createPool();
 
 async function initialize(): Promise<void> {
+	if (!process.env.DATABASE_URL) {
+		logger.info("Skipping database initialization - DATABASE_URL not set");
+		return;
+	}
+
 	const connected = await checkConnection();
 	if (connected) {
 		logger.info("Database connected");
@@ -31,4 +54,4 @@ async function close(): Promise<void> {
 	logger.info("Database pool closed");
 }
 
-export { initialize, checkConnection, close };
+export { pool, initialize, checkConnection, close };
