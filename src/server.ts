@@ -4,6 +4,7 @@ import helmet from "helmet";
 import rateLimit from "express-rate-limit";
 import swaggerUi from "swagger-ui-express";
 
+import * as db from "./db";
 import { logger } from "./logger";
 import { requestLogger } from "./middleware/request-logger";
 import { swaggerSpec } from "./swagger";
@@ -79,6 +80,16 @@ app.use("/api", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 app.get("/health-check", (_req: Request, res: Response) => {
 	res.json({ status: "ok" });
+});
+
+app.get("/db/health", async (_req: Request, res: Response) => {
+	const health = await db.getHealthInfo();
+	res.status(health.connected ? 200 : 503).json(health);
+});
+
+app.get("/db/info", async (_req: Request, res: Response) => {
+	const info = await db.getClusterInfo();
+	res.json(info);
 });
 
 export { app, logger };

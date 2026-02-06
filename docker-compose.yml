@@ -1,6 +1,6 @@
 services:
   app:
-    container_name: devops-task-1
+    container_name: buildbox-api
     build:
       context: .
       dockerfile: Dockerfile
@@ -10,6 +10,11 @@ services:
       - .env
     environment:
       - NODE_ENV=production
+      - COUCHBASE_URL=${COUCHBASE_URL}
+      - COUCHBASE_USERNAME=${COUCHBASE_USERNAME}
+      - COUCHBASE_PASSWORD=${COUCHBASE_PASSWORD}
+      - COUCHBASE_BUCKET=${COUCHBASE_BUCKET}
+      - CORS_ORIGIN=${CORS_ORIGIN}
     volumes:
       - app-logs:/app/logs
     healthcheck:

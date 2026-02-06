@@ -5,7 +5,10 @@ interface Config {
 	host: string;
 	nodeEnv: string;
 	corsOrigins: string[];
-	databaseUrl: string | undefined;
+	couchbaseUrl: string | undefined;
+	couchbaseUsername: string | undefined;
+	couchbasePassword: string | undefined;
+	couchbaseBucket: string | undefined;
 }
 
 function validateEnv(): Config {
@@ -15,7 +18,10 @@ function validateEnv(): Config {
 	const host = process.env.HOST || "localhost";
 	const nodeEnv = process.env.NODE_ENV || "development";
 	const corsOrigin = process.env.CORS_ORIGIN;
-	const databaseUrl = process.env.DATABASE_URL;
+	const couchbaseUrl = process.env.COUCHBASE_URL;
+	const couchbaseUsername = process.env.COUCHBASE_USERNAME;
+	const couchbasePassword = process.env.COUCHBASE_PASSWORD;
+	const couchbaseBucket = process.env.COUCHBASE_BUCKET;
 
 	if (!corsOrigin && nodeEnv === "production") {
 		warnings.push(
@@ -23,8 +29,8 @@ function validateEnv(): Config {
 		);
 	}
 
-	if (!databaseUrl) {
-		warnings.push("DATABASE_URL not set - database features will be disabled");
+	if (!couchbaseUrl || !couchbaseUsername || !couchbasePassword || !couchbaseBucket) {
+		warnings.push("Couchbase not configured - database features will be disabled");
 	}
 
 	const corsOrigins = corsOrigin
@@ -46,7 +52,10 @@ function validateEnv(): Config {
 		host,
 		nodeEnv,
 		corsOrigins,
-		databaseUrl,
+		couchbaseUrl,
+		couchbaseUsername,
+		couchbasePassword,
+		couchbaseBucket,
 	};
 }
 
